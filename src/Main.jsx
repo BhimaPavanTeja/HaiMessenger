@@ -5,7 +5,7 @@ const Main = ({user, Logout}) => {
   return (
     <>
     {/* <Sidebar username={user}/> */}
-    <h2>Welcome to Hai Messenger App!</h2> 
+    <h2>Welcome to Hai Messenger App by React Developers!</h2> 
         <img className='m-auto' src={user.photoURL} alt={user.displayName} />
         <h3>Username: {user.displayName}</h3>
         <i><p>mail {user.email}</p></i>
