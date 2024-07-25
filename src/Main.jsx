@@ -1,15 +1,15 @@
 import React from 'react'
-// import Sidebar from './Sidebar'
+import ChatBox from './sidebar-component/ChatBox'
 
 const Main = ({user, Logout}) => {
   return (
     <>
-    {/* <Sidebar username={user}/> */}
-    <h2>Welcome to Hai Messenger App by React Developers!</h2> 
+    <ChatBox username={user}/>
+    {/* <h2>Welcome to Hai Messenger App by React Developers!</h2> 
         <img className='m-auto' src={user.photoURL} alt={user.displayName} />
         <h3>Username: {user.displayName}</h3>
         <i><p>ur Mail: {user.email}</p></i>
-        <button style={{ backgroundColor: 'red', color: 'white', padding: '7px', border: 'none' }} onClick={Logout}>Logout</button>
+        <button style={{ backgroundColor: 'red', color: 'white', padding: '7px', border: 'none' }} onClick={Logout}>Logout</button> */}
     </>
   )
 }
