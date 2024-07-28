@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import backIcon from './back-icon.png';
 import SearchBar from '../search-component/SearchBar';
+import chatGptIcon from './chatgpt.png';
+import emojiIcon from './emoji.png';
+import filesIcon from './file.png';
+import sendIcon from './send.png';
 
 const ChatBox = ({ username , Logout }) => {
   const [toggle, setToggle] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [color, setColor] = useState(false);
 
   const handleClick = () => {
     setToggle(!toggle);
   };
-
+  const btnClick = () => {
+    setColor(!color);
+  }
   const handleProfileClick = () => {
     setShowProfile(!showProfile);
   };
@@ -59,10 +66,20 @@ const ChatBox = ({ username , Logout }) => {
       </div>
       {/* ChatBox */}
       <div
-        className={`absolute right-0 top-0 bottom-0 bg-emerald-50 shadow-xl m-3 rounded-lg transition-width duration-500 ${
+        className={`absolute flex-col right-0 top-0 bottom-0 bg-emerald-50 shadow-xl m-3 rounded-md transition-width duration-500 ${
           toggle ? 'w-[89%]' : 'w-[72%]'
         }`}
-      ></div>
+      >
+        <div className="top bg-slate-500 h-[10%] w-[100%] rounded-t-md"></div>
+        <div className="middle bg-slate-100 h-[80%] w-[100%]"></div>
+        <div className={`bottom flex items-center h-[10%] w-[100%] rounded-b-md rounded-tr-3xl ${color?'bg-green-600' : 'bg-black'} duration-300`}>
+          <button><img src={chatGptIcon} alt="ai" className='flex-1 h-10 w-10 ml-4 cursor-pointer' onClick={btnClick}/></button>
+          <button><img src={emojiIcon} alt="emojis" className='flex-1 h-8 w-8 ml-3 cursor-pointer'/></button>
+          <button><img src={filesIcon} alt="files" className='flex-1 h-7 w-7 ml-3 cursor-pointer'/></button>
+          <input type="text" name="" id="" placeholder='enter your message...' className='flex-1 h-12 w-80 pl-3 pr-4 rounded-3xl ml-5'/>
+          <button><img src={sendIcon} alt="send" className='flex-1 h-7 ml-3 mr-3 w-7 cursor-pointer'/></button>
+        </div>
+      </div>
     </div>
   );
 };
