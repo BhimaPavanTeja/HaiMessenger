@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import backIcon from './back-icon.png';
 import SearchBar from '../search-component/SearchBar';
+import Contacts from '../Contacts_component/Contacts';
 
 const ChatBox = ({ username , Logout }) => {
   const [toggle, setToggle] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
 
+
   const handleClick = () => {
     setToggle(!toggle);
   };
+ 
 
   const handleProfileClick = () => {
     setShowProfile(!showProfile);
@@ -27,11 +30,11 @@ const ChatBox = ({ username , Logout }) => {
           <img
             src={username.photoURL}
             alt="Avatar"
-            className="rounded-full w-8 h-8 m-2 cursor-pointer"
+            className={`rounded-full w-8 h-8 m-2 cursor-pointer`}
             onClick={handleProfileClick}
           />
           {!toggle && (
-            <h1 className="text-white mt-3 font-medium">{username.displayName}</h1>
+            <h1 className="text-white mt-3 font-medium whitespace-pre">{username.displayName}</h1>
           )}
           {showProfile && (
             <div className="absolute top-12 left-2 w-60 bg-white shadow-lg rounded-lg p-4 z-10">
@@ -56,13 +59,19 @@ const ChatBox = ({ username , Logout }) => {
         />
         </div>
         <SearchBar toggle={toggle} />
+        {/* contacts */}
+        <Contacts toggle={toggle} handleClick={handleClick} />
+
       </div>
       {/* ChatBox */}
       <div
         className={`absolute right-0 top-0 bottom-0 bg-emerald-50 shadow-xl m-3 rounded-lg transition-width duration-500 ${
           toggle ? 'w-[89%]' : 'w-[72%]'
         }`}
-      ></div>
+      >
+        
+
+      </div>
     </div>
   );
 };
