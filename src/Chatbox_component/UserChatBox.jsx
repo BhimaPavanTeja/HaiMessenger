@@ -11,16 +11,24 @@ const UserChatBox = () => {
   const [color, setColor] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [file, setFile] = useState(null);
   const messagesEndRef = useRef(null);
 
   const btnClick = () => {
     setColor(!color);
   };
 
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   const handleSendMessage = () => {
     if (message.trim()) {
       setMessages([...messages, { text: message, sender: true }]);
       setMessage("");
+    } else if (file) {
+      setMessages([...messages, { file: URL.createObjectURL(file), fileName: file.name, sender: true }]);
+      setFile(null);
     }
   };
 
@@ -45,7 +53,7 @@ const UserChatBox = () => {
                       scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-200 
                       scrollbar-thumb-rounded scrollbar-track-rounded">
         {messages.map((msg, index) => (
-          <Messagebullble key={index} message={msg.text} isSender={msg.sender} />
+          <Messagebullble key={index} message={msg.text} file={msg.file} fileName={msg.fileName} isSender={msg.sender} />
         ))}
         {/* Dummy div to keep the scroll at the bottom */}
         <div ref={messagesEndRef} />
@@ -54,7 +62,13 @@ const UserChatBox = () => {
       <div className={`bottom-0 flex items-center h-[11%] w-[100%] rounded-b-md ${color ? 'bg-green-600' : 'bg-gray-700'} duration-300`}>
         <button><img src={chatGptIcon} alt="ai" className='flex-1 h-10 w-10 ml-4 cursor-pointer' onClick={btnClick}/></button>
         <button><img src={emojiIcon} alt="emojis" className='flex-1 h-7 w-7 ml-3 cursor-pointer'/></button>
-        <button><img src={filesIcon} alt="files" className='flex-1 h-7 w-7 ml-3 cursor-pointer'/></button>
+        <input 
+          type="file" 
+          id="fileInput" 
+          style={{ display: 'none' }} 
+          onChange={handleFileChange}
+        />
+        <button onClick={() => document.getElementById('fileInput').click()}><img src={filesIcon} alt="files" className='flex-1 h-7 w-7 ml-3 cursor-pointer'/></button>
         <input 
           type="text" 
           placeholder='Enter your message...' 
