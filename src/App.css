@@ -46,3 +46,23 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* Add this to your CSS file */
+.middle::-webkit-scrollbar {
+  width: 8px;
+}
+
+.middle::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+}
+
+.middle::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 10px;
+}
+
+.middle::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

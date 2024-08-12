@@ -63,7 +63,7 @@ const Contacts = ({ toggle, handleClick }) => {
           className={`flex items-center mb-2 transition-all duration-500 ease-in-out ${
             toggle ? 'mx-4 justify-center' : 'm-3'
           } hover:bg-gray-600 rounded-xl cursor-pointer`}
-          onClick={() => handleClick(contact)}
+          // onClick={() => handleClick(contact)}
         >
           <img
             src={contact.profilepic}
