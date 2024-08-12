@@ -13,9 +13,9 @@ const UserChatBox = () => {
       }
   return (
     <>
-      <div className="top bg-gray-700 h-[10%] w-[100%] rounded-t-md">
+      <div className="top bg-gray-700 h-[10%] w-[100%] rounded-t-md ">
         <div className="flex justify-between items-center">
-            <div className='flex items-center'>
+            <div className='flex items-center my-2'>
             <img src={eximage} className='h-10 w-10 m-2 rounded-full object-cover cursor-pointer' />
             <p className="text-white font-medium">
               Lakshmi Kiran Kalluru
