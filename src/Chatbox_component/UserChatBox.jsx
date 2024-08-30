@@ -4,13 +4,11 @@ import emojiIcon from './addemoji.png';
 import filesIcon from './attachfile.png';
 import sendIcon from './send.png';
 import infoIcon from './info.png';
-import eximage from '../Contacts_component/k1.jpeg';
 import Messagebullble from './Messagebullble';
 
-const UserChatBox = () => {
+const UserChatBox = ({ contact, messagesData, updateMessages }) => {
   const [color, setColor] = useState(false);
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
   const [file, setFile] = useState(null);
   const messagesEndRef = useRef(null);
 
@@ -24,10 +22,12 @@ const UserChatBox = () => {
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      setMessages([...messages, { text: message, sender: true }]);
+      const newMessage = { text: message, sender: true };
+      updateMessages(contact.username, newMessage);
       setMessage("");
     } else if (file) {
-      setMessages([...messages, { file: URL.createObjectURL(file), fileName: file.name, sender: true }]);
+      const newFileMessage = { file: URL.createObjectURL(file), fileName: file.name, sender: true };
+      updateMessages(contact.username, newFileMessage);
       setFile(null);
     }
   };
@@ -35,15 +35,15 @@ const UserChatBox = () => {
   // Scroll to the bottom whenever messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messagesData]);
 
   return (
     <>
       <div className="top bg-gray-700 h-[10%] w-[100%] rounded-t-md">
         <div className="flex justify-between items-center">
           <div className='flex items-center my-2'>
-            <img src={eximage} className='h-10 w-10 m-2 rounded-full object-cover cursor-pointer' alt='profile' />
-            <p className="text-white font-medium">Lakshmi Kiran Kalluru</p>
+            <img src={contact.profilepic} className='h-10 w-10 m-2 rounded-full object-cover cursor-pointer' alt='profile' />
+            <p className="text-white font-medium">{contact.username}</p>
           </div>
           <img src={infoIcon} className='h-6 w-6 mr-2 cursor-pointer' alt='infoicon'/>
         </div>
@@ -52,7 +52,7 @@ const UserChatBox = () => {
       <div className="middle bg-slate-100 h-[79%] w-[100%] flex flex-col overflow-y-auto p-2 
                       scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-200 
                       scrollbar-thumb-rounded scrollbar-track-rounded">
-        {messages.map((msg, index) => (
+        {messagesData[contact.username]?.map((msg, index) => (
           <Messagebullble key={index} message={msg.text} file={msg.file} fileName={msg.fileName} isSender={msg.sender} />
         ))}
         {/* Dummy div to keep the scroll at the bottom */}
@@ -81,6 +81,6 @@ const UserChatBox = () => {
       </div>
     </>
   );
-}
+};
 
 export default UserChatBox;

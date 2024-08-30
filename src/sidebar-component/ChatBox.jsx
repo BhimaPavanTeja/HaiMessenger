@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../Contacts_component/contact.css';
 import backIcon from './back-icon.png';
 import SearchBar from '../search-component/SearchBar';
 import Contacts from '../Contacts_component/Contacts';
@@ -8,37 +7,51 @@ import UserChatBox from '../Chatbox_component/UserChatBox';
 const ChatBox = ({ username, Logout }) => {
   const [toggle, setToggle] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [selectedContact, setSelectedContact] = useState(null);
+  const [messagesData, setMessagesData] = useState({});
 
   const handleClick = () => {
     setToggle(!toggle);
   };
+
   const handleProfileClick = () => {
     setShowProfile(!showProfile);
+  };
+
+  const handleContactClick = (contact) => {
+    setSelectedContact(contact);
+  };
+
+  const updateMessages = (contactName, newMessage) => {
+    setMessagesData(prevMessages => ({
+      ...prevMessages,
+      [contactName]: [...(prevMessages[contactName] || []), newMessage]
+    }));
   };
 
   return (
     <div className="relative h-screen">
       {/* Sidebar */}
       {showProfile && (
-            <div className="absolute top-16 left-5 w-60 bg-white shadow-lg rounded-lg p-4 z-10">
-              <h2 className="text-lg font-bold mb-3">Profile</h2>
-              <img
-                className="m-auto rounded"
-                src={username.photoURL}
-                alt={username.displayName}
-              />
-              <h3 className="font-semibold mt-2 box-decoration-clone bg-gradient-to-r from-indigo-600 to-pink-500 text-white w-fit px-2 m-auto rounded">
-                {username.displayName}
-              </h3>
-              <p className="font-medium text-base italic">{username.email}</p>
-              <button
-                className="font-light mt-4 cursor-pointer bg-red-600 text-white px-2 py-1 rounded-lg"
-                onClick={Logout}
-              >
-                Logout
-              </button>
-            </div>
-          )}
+        <div className="absolute top-16 left-5 w-60 bg-white shadow-lg rounded-lg p-4 z-10">
+          <h2 className="text-lg font-bold mb-3">Profile</h2>
+          <img
+            className="m-auto rounded"
+            src={username.photoURL}
+            alt={username.displayName}
+          />
+          <h3 className="font-semibold mt-2 box-decoration-clone bg-gradient-to-r from-indigo-600 to-pink-500 text-white w-fit px-2 m-auto rounded">
+            {username.displayName}
+          </h3>
+          <p className="font-medium text-base italic">{username.email}</p>
+          <button
+            className="font-light mt-4 cursor-pointer bg-red-600 text-white px-2 py-1 rounded-lg"
+            onClick={Logout}
+          >
+            Logout
+          </button>
+        </div>
+      )}
       <div
         className={`overflow-hidden absolute left-0 top-0 bottom-0 bg-gray-700 shadow-xl m-3 rounded-lg justify-between transition-width duration-500 ${
           toggle ? 'w-1/12' : 'w-3/12'
@@ -68,9 +81,9 @@ const ChatBox = ({ username, Logout }) => {
           />
         </div>
         <SearchBar toggle={toggle} />
-        {/* contacts */}
+        {/* Contacts */}
         <div className="overflow-y-auto h-[calc(100%-80px)] hide-scrollbar">
-          <Contacts toggle={toggle} handleClick={handleClick} />
+          <Contacts toggle={toggle} handleContactClick={handleContactClick} />
         </div>
       </div>
       {/* ChatBox */}
@@ -79,7 +92,9 @@ const ChatBox = ({ username, Logout }) => {
           toggle ? 'w-[89.5%]' : 'w-[72.5%]'
         }`}
       >
-        <UserChatBox />
+        {selectedContact ? (
+          <UserChatBox contact={selectedContact} messagesData={messagesData} updateMessages={updateMessages} />
+        ) : null}
       </div>
     </div>
   );

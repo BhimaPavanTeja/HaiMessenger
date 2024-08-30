@@ -6,7 +6,7 @@ import k3 from './k3.jpeg';
 const data = [
   {
     profilepic: k1,
-    username: 'Lakshmi kiran kalluru',
+    username: 'Lakshmi Kiran Kalluru',
   },
   {
     profilepic: k2,
@@ -14,47 +14,11 @@ const data = [
   },
   {
     profilepic: k3,
-    username: 'karthik',
-  },
-  {
-    profilepic: k1,
-    username: 'Lakshmi kiran kalluru',
-  },
-  {
-    profilepic: k2,
-    username: 'Pavan Teja',
-  },
-  {
-    profilepic: k3,
-    username: 'karthik',
-  },
-  {
-    profilepic: k1,
-    username: 'Lakshmi kiran kalluru',
-  },
-  {
-    profilepic: k2,
-    username: 'Pavan Teja',
-  },
-  {
-    profilepic: k3,
-    username: 'karthik',
-  },
-  {
-    profilepic: k1,
-    username: 'Lakshmi kiran kalluru',
-  },
-  {
-    profilepic: k2,
-    username: 'Pavan Teja',
-  },
-  {
-    profilepic: k3,
-    username: 'karthik',
-  },
+    username: 'Karthik',
+  }
 ];
 
-const Contacts = ({ toggle, handleClick }) => {
+const Contacts = ({ toggle, handleContactClick }) => {
   return (
     <div>
       {data.map((contact, index) => (
@@ -63,7 +27,7 @@ const Contacts = ({ toggle, handleClick }) => {
           className={`flex items-center mb-2 transition-all duration-500 ease-in-out ${
             toggle ? 'mx-4 justify-center' : 'm-3'
           } hover:bg-gray-600 rounded-xl cursor-pointer`}
-          // onClick={() => handleClick(contact)}
+          onClick={() => handleContactClick(contact)}
         >
           <img
             src={contact.profilepic}
