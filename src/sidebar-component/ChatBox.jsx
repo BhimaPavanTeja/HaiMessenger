@@ -94,7 +94,11 @@ const ChatBox = ({ username, Logout }) => {
       >
         {selectedContact ? (
           <UserChatBox contact={selectedContact} messagesData={messagesData} updateMessages={updateMessages} />
-        ) : null}
+        ) : (
+          <div className="flex items-center justify-center h-full">
+            <h2 className="text-gray-500">Select a contact to start chatting</h2>
+          </div>
+        )}
       </div>
     </div>
   );
