@@ -7,6 +7,7 @@ import Main from './Main';
 
 function App() {
   const [user, setUser] = useState(null);
+  // user
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
